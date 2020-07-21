@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:mvvm_example/ui/home/home_view_model.dart';
+import 'package:mvvm_example/ui/login/login_page.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    print("HomePageのStatelessWidget buildの中:$context");
     return MultiProvider(
       providers: [
         // Injects HomeViewModel into this widgets.
@@ -39,8 +41,11 @@ class HomePageBody extends StatefulWidget {
 }
 
 class _HomePageBodyState extends State<HomePageBody> {
+
+
   @override
   void initState() {
+    print("_HomePageBodyStateのinitStateの中:$context");
     super.initState();
 
     // Listen events by view model.
@@ -49,6 +54,7 @@ class _HomePageBodyState extends State<HomePageBody> {
 
   @override
   Widget build(BuildContext context) {
+    print("_HomePageBodyStateのStateウィジェット buildの中:$context");
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -60,8 +66,21 @@ class _HomePageBodyState extends State<HomePageBody> {
             Provider.of<HomeViewModel>(context).counter.toString(),
             style: Theme.of(context).textTheme.display1,
           ),
+          RaisedButton(
+            child: Text("ログインページへ"),
+            onPressed: ()=>_toLoginPage(context),
+          ),
         ],
       ),
+    );
+  }
+
+  _toLoginPage(BuildContext context) {
+    print("_toLoginPageに渡したBuildContextの値:$context");
+    final viewModel= Provider.of<HomeViewModel>(context,listen: false);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginPage()),
     );
   }
 }

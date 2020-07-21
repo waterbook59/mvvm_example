@@ -10,19 +10,20 @@ class LoginViewModel extends ChangeNotifier {
 
   bool get isLogging => uiState == UiState.Loading;
 
-  var _loginSuccessAction = StreamController<Event>();
-  StreamController<Event> get loginSuccessAction => _loginSuccessAction;
+  var _loginSuccessAction = StreamController<String>.broadcast();
+  StreamController<String> get loginSuccessAction => _loginSuccessAction;
 
   void login() {
     _uiState = UiState.Loading;
     notifyListeners();
 
-    Future.delayed(Duration(milliseconds: 1500)).then((_) {
+    Future.delayed(Duration(milliseconds: 750)).then((_) {
       // Login Success!
       _uiState = UiState.Loaded;
       notifyListeners();
 
-      _loginSuccessAction.sink.add(Event());
+      _loginSuccessAction.sink.add("この後pushReplacementでhomePageへ");
+      print("sink.addした後");
     });
   }
 
