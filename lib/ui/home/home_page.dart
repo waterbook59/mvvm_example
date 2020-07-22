@@ -7,12 +7,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("HomePageのStatelessWidget buildの中:$context");
-    return MultiProvider(
+    return
+
+      MultiProvider(
       providers: [
         // Injects HomeViewModel into this widgets.
         ChangeNotifierProvider(create: (_) => HomeViewModel()),
       ],
-      child: Scaffold(
+      child:
+      Scaffold(
         appBar: AppBar(
           title: Text("Home"),
         ),

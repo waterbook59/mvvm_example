@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:mvvm_example/ui/home/home_page.dart';
 import 'package:mvvm_example/ui/login/login_view_model.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("LoginPageのbuild内:$context");
-    return MultiProvider(
-      providers: [
-        // Injects LoginViewModel into this widgets.
-        ChangeNotifierProvider(create: (_) => LoginViewModel()),
-      ],
-      child: Scaffold(
+    return
+//      MultiProvider(
+//      providers: [
+//        // Injects LoginViewModel into this widgets.
+//        ChangeNotifierProvider(create: (_) => LoginViewModel()),
+//      ],
+//      child:
+      Scaffold(
         appBar: AppBar(title: Text("Login")),
         body: _LoginPageBody(),
-      ),
+//      ),
     );
   }
 }
@@ -36,6 +39,7 @@ class __LoginPageBodyState extends State<_LoginPageBody> {
     viewModel.loginSuccessAction.stream.listen((st) {
       print("__LoginPageBodyStateのinitStateでProviderのcontext:$context");//2回目にここがnullになってる
       print(st);
+      Toast.show("ログイン完了！", context);
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context)=>HomePage())
